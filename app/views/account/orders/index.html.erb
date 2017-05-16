@@ -12,9 +12,17 @@
       <tbody>
         <% @orders.each do |order| %>
         <tr class="table-striped  table-bordered">
-          <td colspan="3"><%= order.created_at %>
+          <td colspan="3">
+            <%= order.created_at %> &nbsp;
             订单号:
-            <%= order.id %></td>
+            <%= order.id %> &nbsp;
+            订单状态:
+            <% if order.is_paid? %>
+              已付款
+            <% else %>
+              未付款
+            <% end %>
+          </td>
         </tr>
         <% order.product_lists.each do |product_list| %>
         <tr class=" table-bordered">
