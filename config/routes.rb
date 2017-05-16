@@ -7,7 +7,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :carts
+  resources :carts do
+    resources :cart_items
+    member do
+      post :clear
+    end
+  end
 
   namespace :admin do
     resources :products
