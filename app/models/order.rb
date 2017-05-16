@@ -11,6 +11,9 @@
 #  shipping_address :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  token            :string
+#  is_paid          :boolean          default("f")
+#  payment_method   :string
 #
 
 class Order < ApplicationRecord
