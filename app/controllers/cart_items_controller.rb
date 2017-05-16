@@ -4,14 +4,13 @@ class CartItemsController < ApplicationController
   def update
     @cartItem = CartItem.find(params[:id])
     @product = Product.find(@cartItem.product_id)
-    q = cart_item_params[:quantity]
-    if q.to_i > @product.quantity
-      flash[:alert] = "更新数量超过了库存"
+    if cart_item_params[:quantity].to_i > @product.quantity
+      flash[:alert] = "数量不足以加入购物车"
     else
       if !@cartItem.update(cart_item_params)
-        flash[:alert] = "更新错误"
+        flash[:alert] = "变更数量失败"
       else
-        flash[:notice] = "更新成功"
+        flash[:notice] = "变更数量成功"
       end
     end
     redirect_to :back
@@ -19,7 +18,9 @@ class CartItemsController < ApplicationController
 
   def destroy
     @cartItem = CartItem.find(params[:id])
+    @product = @cartItem.product
     @cartItem.destroy
+    flash[:warning] = "成功将#{@product.title}删除"
     redirect_to :back
   end
 

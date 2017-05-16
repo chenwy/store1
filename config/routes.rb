@@ -8,11 +8,12 @@ Rails.application.routes.draw do
   end
 
   resources :carts do
-    resources :cart_items
-    member do
-      post :clear
+    collection do
+      delete :clean
     end
   end
+
+  resources :cart_items
 
   namespace :admin do
     resources :products

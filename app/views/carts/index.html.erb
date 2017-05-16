@@ -1,10 +1,8 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="">
-      <h2>购物车</h2>
-      <%= link_to("清空购物车", clear_cart_path(current_cart), method: :post, class: "btn btn-xs btn-danger pull-right") %>
-    </div>
-    <br>
+    <%= link_to("清空购物车", clean_carts_path, method: :delete, class: "pull-right", style: "text-decoration: underline;", data: {confirm: "你确定要清空整个购物车吗？"}) %>
+    <h2>购物车</h2>
+
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -16,41 +14,41 @@
       </thead>
       <tbody>
         <% current_cart.cart_items.each do |cart_item| %>
-          <tr>
-            <td>
-              <%= link_to product_path(cart_item.product) do %>
-                <% if cart_item.product.image.present? %>
-                  <%= image_tag(cart_item.product.image.thumb.url, class: "thumbnail") %>
-                <% else %>
-                  <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
-                <% end %>
+        <tr>
+          <td>
+            <%= link_to product_path(cart_item.product) do %>
+              <% if cart_item.product.image.present? %>
+              <%= image_tag(cart_item.product.image.thumb.url, class: "thumbnail") %>
+            <% else %>
+              <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
               <% end %>
-            </td>
-            <td>
-              <%= link_to(cart_item.product.title, product_path(cart_item.product)) %>
-            </td>
-            <td>
-              <%= cart_item.product.price %>
-            </td>
-            <td>
-              <%= simple_form_for [current_cart, cart_item]  do |f| %>
-                <div class="pull-left">
-                  <%= f.input :quantity, label: false, input_html: {style: "width: 50px"} %>
-                </div>
-                  <%= f.submit "更新", input_html: {style: "float: right;"} %>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to("删除", cart_cart_item_path(current_cart, cart_item), method: :delete, data: {confirm: "Are you sure?"}) %>
-            </td>
-          </tr>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to(cart_item.product.title, product_path(cart_item.product)) %>
+          </td>
+          <td>
+            <%= cart_item.product.price %>
+          </td>
+          <td>
+            <%= form_for cart_item do |f| %>
+              <%= f.select :quantity, 1..cart_item.product.quantity%>
+              <%= f.submit "更新", data: {disable_with: "Submiting..."} %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to cart_item_path(cart_item), method: :delete do%><i class="fa fa-trash"></i><% end %>
+          </td>
+        </tr>
         <% end %>
       </tbody>
     </table>
     <br>
     <div class="total clearfix">
       <span class="pull-right">
-        总计 <%= render_cart_total_price(current_cart) %> RMB
+        总计
+        <%= render_cart_total_price(current_cart) %>
+        RMB
       </span>
     </div>
     <hr>
