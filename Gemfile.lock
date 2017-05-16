@@ -210,7 +210,6 @@ PLATFORMS
 DEPENDENCIES
   awesome_rails_console
   bootstrap-sass
-  byebug
   carrierwave
   coffee-rails (~> 4.2)
   devise
@@ -221,6 +220,7 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   mini_magick
+  pry
   pry-byebug
   pry-stack_explorer
   puma (~> 3.0)
