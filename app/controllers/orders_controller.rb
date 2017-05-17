@@ -17,6 +17,9 @@ class OrdersController < ApplicationController
         product_list.save
       end
 
+
+      OrderMailer.notify_order_placed(@order).deliver!
+      current_cart.clean!
       redirect_to order_path(@order.token)
     else
       render 'carts/checkout'

@@ -39,6 +39,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'sqlite3'
@@ -46,6 +47,7 @@ group :development, :test do
   gem 'pry'
   #后台辅助
   gem 'awesome_rails_console'
+  gem 'letter_opener'
 end
 
 group :development do
