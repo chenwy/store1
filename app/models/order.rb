@@ -51,6 +51,10 @@ class Order < ApplicationRecord
       transitions from: :order_placed, to: :paid
     end
 
+    event :shipping do
+      transitions from: :paid, to: :shipping
+    end
+
     event :ship do
       transitions from: :shipping, to: :shipped
     end

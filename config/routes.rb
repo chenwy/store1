@@ -18,6 +18,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :products
+    resources :orders do
+      member do
+        post :shipping
+        post :cancel
+      end
+    end
   end
 
   resources :orders do
@@ -28,7 +34,11 @@ Rails.application.routes.draw do
   end
 
   namespace :account do
-    resources :orders
+    resources :orders do
+      member do
+        post :cancel
+      end
+    end
   end
 
   root 'products#index'
